@@ -20,7 +20,17 @@
  * @return {Node}
  */
 var connect = function(root) {
-    
+	if(!root) return root
+	connectTwo(root.left, root.right)
+	return root
 };
+
+const connectTwo = (leftNode, rightNode) => {
+	if(!leftNode || !rightNode) return 
+	leftNode.next = rightNode
+	connectTwo(leftNode.left,leftNode.right)
+	connectTwo(leftNode.right,rightNode.left)
+	connectTwo(rightNode.left,rightNode.right)
+}
 // @lc code=end
 
