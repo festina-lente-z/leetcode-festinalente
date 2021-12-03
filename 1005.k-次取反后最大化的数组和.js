@@ -11,13 +11,22 @@
  * @return {number}
  */
 var largestSumAfterKNegations = function(nums, k) {
-  while(k) {
-    const MIN = Math.min(...nums)
-    const INDEX = nums.indexOf(MIN)
-    nums[INDEX] = -MIN
+  nums.sort((a, b) => a-b)
+  let index = 0, res = 0
+  while(nums[index]<0 && k>0){
+    nums[index] = -nums[index]
+    index++
     k--
   }
-  return nums.reduce((prev, curr) => prev + curr)
+  let min = nums[0]
+  for(let value of nums) {
+    res += value
+    if(value < min) min = value
+  }
+  if(k!=0 && k%2!=0) {
+    res = res - 2 * min
+  }
+  return res
 };
 // @lc code=end
 
