@@ -19,14 +19,12 @@
  * @return {TreeNode}
  */
 var insertIntoBST = function(root, val) {
-  if(!root) root = new TreeNode(val)
+  if(!root) return new TreeNode(val)
   if(root.val > val) {
-    if(!root.left) root.left = new TreeNode(val)
-    insertIntoBST(root.left, val)
+    root.left = insertIntoBST(root.left, val)
   }
   if(root.val < val) {
-    if(!root.right) root.right = new TreeNode(val)
-    insertIntoBST(root.right, val)
+    root.right = insertIntoBST(root.right, val)
   }
   
   return root
