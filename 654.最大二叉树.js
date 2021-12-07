@@ -18,12 +18,17 @@
  * @return {TreeNode}
  */
 var constructMaximumBinaryTree = function(nums) {
-  if(!nums.length) return null
-  const maxN = Math.max(...nums)
-  const index = nums.indexOf(maxN)
-  const root = new TreeNode(maxN)
-  root.left = constructMaximumBinaryTree(nums.slice(0,index))
-  root.right = constructMaximumBinaryTree(nums.slice(index+1))
+  // 判断边界，如果剩下的数组为空，则返回null
+  if(nums.length == 0) return null
+  // 找到数组中的最大值
+  let maxNum = Math.max(...nums)
+  // 找到最大值所在位置
+  let index = nums.indexOf(maxNum)
+  // 创建当前节点
+  const root = new TreeNode(maxNum)
+  // 既然是构建二叉树，不仅要考虑根节点（当前节点）还要考虑左右子树的情况
+  root.left = constructMaximumBinaryTree(nums.slice(0, index))
+  root.right = constructMaximumBinaryTree(nums.slice(index+1, nums.length))
   return root
 };
 // @lc code=end
