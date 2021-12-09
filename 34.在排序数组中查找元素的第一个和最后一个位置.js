@@ -11,21 +11,33 @@
  * @return {number[]}
  */
 var searchRange = function(nums, target) {
+  
+  return [left_bound(nums, target), right_bound(nums, target)]
+};
+const left_bound = (nums, target) => {
   let left = 0, right = nums.length
 
   while(left<right) {
     let mid = left + Math.floor((right-left)/2)
-    if(nums[mid] > target) right = mid
-    else if(nums[mid] == target) right = mid
-    else if(nums[mid] < target) left = mid + 1
+    if(target > nums[mid]) left = mid + 1
+    else if(target == nums[mid]) right = mid
+    else if(target < nums[mid]) right = mid
   }
-  if(nums[left] != target) return [-1,-1]
-  let count = -1
-  for(let i=left; i<nums.length; i++){
-    if(nums[i] == target) count++
-    else break
+
+  return nums[left] == target ? left : -1
+}
+
+const right_bound = (nums, target) => {
+  let left = 0, right = nums.length
+
+  while(left<right) {
+    let mid = left + Math.floor((right-left)/2)
+    if(target > nums[mid]) left = mid + 1
+    else if(target == nums[mid]) left = mid + 1
+    else if(target < nums[mid]) right = mid
   }
-  return [left, left+count]
-};
+  // 因为右侧边界是开区间，取不到，所以要减掉1
+  return nums[right-1] == target ? right-1 : -1
+}
 // @lc code=end
 
