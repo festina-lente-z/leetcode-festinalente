@@ -18,28 +18,22 @@
  * @return {ListNode}
  */
 var mergeTwoLists = function(list1, list2) {
-  // 设置虚拟头结点，之后返回head.next即可忽略现在创建的节点
-  // 注意这题是merge，不是在原链表上改
-  let head = new ListNode()
-  let t = head
-
-  // 设置两个指针分别指向两条链表
-  let p = list1, q = list2
-  // 两条链表有一条遍历完就结束
-  while(p && q) {
-    if(p.val < q.val) {
-      t.next = p
+  let dummy = new ListNode(), p = dummy
+  while(list1 && list2){
+    if(list1.val<list2.val) {
+      p.next = list1
       p = p.next
-    } else {
-      t.next = q
-      q = q.next
+      list1 = list1.next
     }
-    t = t.next
+    else {
+      p.next = list2
+      p = p.next
+      list2 = list2.next
+    }
   }
-  // 把没遍历完的部分直接接到合并好的链表后面
-  if(p) t.next = p
-  if(q) t.next = q
-  return head.next
+  if(list1) p.next = list1
+  if(list2) p.next = list2
+  return dummy.next
 };
 // @lc code=end
 
