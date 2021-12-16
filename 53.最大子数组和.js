@@ -12,15 +12,14 @@
 // 为什么不能用滑动窗口？因为里面有负值
 // dp[i]以nums[i]为结尾的连续子数组最大和
 var maxSubArray = function(nums) {
-  let dp = Array(nums.length).fill(nums[0])
+  let prev = nums[0], maxSum = nums[0]
   for(let i=1; i<nums.length; i++) {
-    if(dp[i-1]>0){
-      dp[i] = dp[i-1] + nums[i]
-    } else {
-      dp[i] = nums[i]
-    }
+    let curr = nums[i]
+    if(prev > 0) curr = prev + nums[i]
+    maxSum = Math.max(maxSum, curr)
+    prev = curr
   }
-  return Math.max(...dp)
+  return maxSum
 };
 // @lc code=end
 
